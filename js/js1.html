@@ -89,6 +89,7 @@ var debug2 = (function () {
 	}
 }) ();
 
+/*
 // Approche TDD : Test Driven Development
 debug2("m31"); // doit afficher
 debug2("m22"); // doit afficher
@@ -104,9 +105,24 @@ debug2(); // affiche le compteur
 debug2("", true);
 debug2("raz");
 debug2("m27"); // doit afficher
+*/
 
 // TODO : oDbg qui offre la fonctionnalité sous forme d'objet  
+var oDbg = (function(max_interne){
+	var compteur_interne = 0; 
+	// if (max_interne == undefined) max_interne=5; 
+	return {
+		trace : function(s){
+			if (++compteur_interne<=max_interne) trace(s);
+		}, 
+		getCompteur : function(){return compteur_interne;}, 
+		resetCompteur : function(){compteur_interne=0}, 
+		getMax : function(){return max_interne}, 
+		setMax : function(m){max_interne=m;}, 
+	}; 
+})(5); 
 
+ 
 // Approche TDD : Test Driven Development
 trace(oDbg.getMax());
 oDbg.setMax(3);
@@ -115,7 +131,8 @@ oDbg.trace("m2"); // doit afficher
 oDbg.trace("m3"); // doit afficher
 trace(oDbg.getCompteur()); // affiche le compteur 
 oDbg.trace("m4"); // ne doit PLUS afficher
-oDbg.setMax(4);
+trace(oDbg.getCompteur()); // affiche le compteur 
+oDbg.setMax(5);
 oDbg.trace("m5"); // doit afficher
 oDbg.trace("m6"); // ne doit PLUS afficher
 trace(oDbg.getCompteur()); // affiche le compteur 
