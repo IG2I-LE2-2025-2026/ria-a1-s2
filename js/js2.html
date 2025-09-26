@@ -98,7 +98,23 @@ var oDefault = {
 // en utilisant des données (si elles existent) de oParams
 // et renvoie donc un nouvel objet ! 
 
+function enrichir(oDefault,oParams) {
+	var res = {}; 
+	var prop; 
+	
+	for (prop in oDefault) {
+		if 		 ((oParams != undefined) 
+				&& (oParams[prop] != undefined))
+			res[prop] = oParams[prop]; 
+		else
+			res[prop] = oDefault[prop];
+	}
+
+	return res; 
+}
+
 function oBoucle(oConfig) {
+	/*
 	var oEffectif = oDefault; // ceci est une prise de référence ! 
 	// On préfèrerait un clonage !! 
 	// https://www.younup.fr/blog/le-clonage-des-objets-en-js
@@ -118,6 +134,9 @@ function oBoucle(oConfig) {
 		
 	if (oConfig.fnPoursuite != undefined) 
 		oEffectif.fnPoursuite = oConfig.fnPoursuite; 
+	*/
+	
+	var oEffectif = enrichir(oDefault,oConfig);
 	
 	var foo = function () {
 		if (oEffectif.fnPoursuite()) {
@@ -132,6 +151,7 @@ oBoucle({periode:2});
 oBoucle({});
 oBoucle({fnTraitement:traiter});
 oBoucle({fnTraitement:traiter2, fnPoursuite:poursuivre}); 
+oBoucle();
 
 </script>
 </head>
