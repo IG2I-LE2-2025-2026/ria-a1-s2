@@ -94,7 +94,24 @@ var oDefault = {
 }
 
 function oBoucle(oConfig) {
-
+	var oEffectif = oDefault; // ceci est une prise de référence ! 
+	// On préfèrerait un clonage !! 
+	if (oConfig.periode != undefined) 
+		oEffectif.periode = oConfig.periode; 
+		
+	if (oConfig.fnTraitement != undefined) 
+		oEffectif.fnTraitement = oConfig.fnTraitement; 
+		
+	if (oConfig.fnPoursuite != undefined) 
+		oEffectif.fnPoursuite = oConfig.fnPoursuite; 
+	
+	var foo = function () {
+		if (oEffectif.fnPoursuite()) {
+			oEffectif.fnTraitement();
+			setTimeout(foo, oEffectif.periode*1000);
+		}
+	}; 
+	foo();
 }
 
 oBoucle({periode:2}); 
