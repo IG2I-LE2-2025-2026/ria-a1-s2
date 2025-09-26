@@ -142,14 +142,26 @@ oDbg.trace("m7"); // doit afficher
 function show(refOrId,display) {
 	// affiche l'élément dont la référence ou l'id est fourni
 	// le paramètre display doit valoir block par défaut
+	if (typeof refOrId == "string") 
+		refOrId = document.getElementById(refOrId);
+		
+	if (display == undefined) display = "block";
+	
+	refOrId.style.display = display; 
 }
 
 function hide(refOrId) {
 	// cache l'élément dont la référence ou l'id est fourni
+	show(refOrId,"none");
 }
 
 function html(refOrId, val) {
 	// affecte une valeur à l'élément dont la référence ou l'id est fourni; si val n'est pas fourni, on renvoie son contenu
+	if (typeof refOrId == "string") 
+		refOrId = document.getElementById(refOrId);
+		
+	if (val != undefined) refOrId.innerHTML = val;
+	else return refOrId.innerHTML; 
 }
 
 function val(refOrId, val) {
@@ -157,6 +169,21 @@ function val(refOrId, val) {
 	// l'élément est un champ de formulaire
 	// la fonction doit pouvoir manipuler l'état des champs de type checkbox et radio 
 	
+	if (typeof refOrId == "string") 
+		refOrId = document.getElementById(refOrId);
+		
+	if	(
+						(refOrId.type == "checkbox")
+				|| 	(refOrId.type == "radio")
+			)
+	{
+		if (val != undefined) refOrId.checked = val;
+		else return refOrId.checked; 
+	}
+	else {
+		if (val != undefined) refOrId.value = val;
+		else return refOrId.value; 
+	}
 }
 
 // tests à faire depuis la console : 
@@ -173,9 +200,9 @@ function val(refOrId, val) {
 
 </script>
 
-<div id="lediv"></div>
-<input type="text" id="letext" />
-<input type="checkbox" id="lacb" />
+<div id="lediv">.innerHTML</div>
+<input value=".value" type="text" id="letext" />
+<input type="radio" id="lacb" />
 
 
 
