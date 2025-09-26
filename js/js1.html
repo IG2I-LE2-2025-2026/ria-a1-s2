@@ -107,6 +107,21 @@ debug2("m27"); // doit afficher
 
 // TODO : oDbg qui offre la fonctionnalité sous forme d'objet  
 
+// Approche TDD : Test Driven Development
+trace(oDbg.getMax());
+oDbg.setMax(3);
+oDbg.trace("m1"); // doit afficher
+oDbg.trace("m2"); // doit afficher
+oDbg.trace("m3"); // doit afficher
+trace(oDbg.getCompteur()); // affiche le compteur 
+oDbg.trace("m4"); // ne doit PLUS afficher
+oDbg.setMax(4);
+oDbg.trace("m5"); // doit afficher
+oDbg.trace("m6"); // ne doit PLUS afficher
+trace(oDbg.getCompteur()); // affiche le compteur 
+oDbg.resetCompteur(); // remise à zéro du compteur
+oDbg.trace("m7"); // doit afficher
+
 function show(refOrId,display) {
 	// affiche l'élément dont la référence ou l'id est fourni
 	// le paramètre display doit valoir block par défaut
