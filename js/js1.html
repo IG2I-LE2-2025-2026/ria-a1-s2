@@ -8,9 +8,21 @@ function trace(s) {
 function debug(s) {
 	// affiche un nombre de messages limité par un compteur
 	// affiche le compteur si s n'est pas fourni
-	// e.g. après 10 affichages, la fonction ne fait plus rien 
+	// e.g. après 5 affichages, la fonction ne fait plus rien 
 	// comment remettre à 0 le compteur ?   
 }
+
+// Approche TDD : Test Driven Development
+debug("m1"); // doit afficher
+debug("m2"); // doit afficher
+debug("m3"); // doit afficher
+debug(); // affiche le compteur 
+debug("m4"); // doit afficher
+debug("m5"); // doit afficher
+debug("m6"); // ne doit PLUS afficher
+debug(); // affiche le compteur 
+// remise à zéro du compteur
+debug("m7"); // doit afficher
 
 function show(refOrId,display) {
 	// affiche l'élément dont la référence ou l'id est fourni
