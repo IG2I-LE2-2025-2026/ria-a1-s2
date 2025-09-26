@@ -3,6 +3,12 @@
 function trace(s) {
 	// que fait cette fonction ?
 	window.console && console.log(s);
+	
+	// lors de l'évaluation d'une condition 
+	// utilisant un opérateur "ET" 
+	// le code exécute la première instruction 
+	// et SI elle est vraie, teste (donc exécute) la seconde 
+	// MAIS PAS si elle est FAUSSE 
 }
 var compteur = 0; 
 var maxCompteur = 5; 
@@ -25,6 +31,7 @@ function debug(s) {
 	// comment remettre à 0 le compteur ?   
 }
 
+/*
 // Approche TDD : Test Driven Development
 debug("m1"); // doit afficher
 debug("m2"); // doit afficher
@@ -37,9 +44,66 @@ debug(); // affiche le compteur
 // remise à zéro du compteur
 compteur = 0; // DANGER !!
 debug("m7"); // doit afficher
-
+*/
 
 // TODO : debug2 avec closure qui évite l'usage de variable globale 
+
+/*
+var debug2 = mkDebug2(); 
+
+function mkDebug2() {
+	var compteur_interne2 = 0; 
+	var max_interne2 = 5; 
+	return function (s, raz) {
+		// merdique ! 
+		// if (s == "raz") {
+		//	compteur_interne2 = 0;
+		//	return;
+		//}
+		if ( (raz != undefined) && (raz === true) ){
+			compteur_interne2 = 0;
+			return;
+		}
+		if (s === undefined) {
+			trace("compteur : " + compteur_interne2); 
+			return;
+		}
+		if (++compteur_interne2<=max_interne2) trace(s);   
+	}
+}
+*/
+
+var debug2 = (function () {
+	var compteur_interne2 = 0; 
+	var max_interne2 = 5; 
+	return function (s, raz) {
+		if ( (raz != undefined) && (raz === true) ){
+			compteur_interne2 = 0;
+			return;
+		}
+		if (s === undefined) {
+			trace("compteur : " + compteur_interne2); 
+			return;
+		}
+		if (++compteur_interne2<=max_interne2) trace(s);   
+	}
+}) ();
+
+// Approche TDD : Test Driven Development
+debug2("m31"); // doit afficher
+debug2("m22"); // doit afficher
+debug2("m23"); // doit afficher
+debug2(); // affiche le compteur 
+debug2("m24"); // doit afficher
+debug2("m25"); // doit afficher
+debug2("m26"); // ne doit PLUS afficher
+debug2(); // affiche le compteur 
+// remise à zéro du compteur ? 
+// compteur_interne2 = 0; // marche pas 
+//debug2("raz"); // OK mais on ne peut plus afficher "raz"
+debug2("", true);
+debug2("raz");
+debug2("m27"); // doit afficher
 
 // TODO : oDbg qui offre la fonctionnalité sous forme d'objet  
 
