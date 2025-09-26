@@ -4,10 +4,23 @@ function trace(s) {
 	// que fait cette fonction ?
 	window.console && console.log(s);
 }
-
+var compteur = 0; 
+var maxCompteur = 5; 
 function debug(s) {
-	// affiche un nombre de messages limité par un compteur
+	// en C, on utiliserait une variable statique 
+	// ca n'existe pas en JS 
+	// => utilisation d'une closure "fermeture" au sens "enfermement" de l'accès à une variable depuis une fonction 
 	// affiche le compteur si s n'est pas fourni
+	// les opérateurs triples comparent les types sous-jacents (boolean n'est pas la même chose que int, null pas la même chose que undefined)
+	if (s === undefined) {
+		trace("compteur : " + compteur); 
+		return;
+	}
+	
+	// affiche un nombre de messages limité par un compteur
+	
+	if (++compteur<=maxCompteur) trace(s); 
+	
 	// e.g. après 5 affichages, la fonction ne fait plus rien 
 	// comment remettre à 0 le compteur ?   
 }
@@ -22,7 +35,13 @@ debug("m5"); // doit afficher
 debug("m6"); // ne doit PLUS afficher
 debug(); // affiche le compteur 
 // remise à zéro du compteur
+compteur = 0; // DANGER !!
 debug("m7"); // doit afficher
+
+
+// TODO : debug2 avec closure qui évite l'usage de variable globale 
+
+// TODO : oDbg qui offre la fonctionnalité sous forme d'objet  
 
 function show(refOrId,display) {
 	// affiche l'élément dont la référence ou l'id est fourni
