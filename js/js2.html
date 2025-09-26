@@ -10,7 +10,7 @@ function poursuivre() {
 	else return false;
 }
 boucle(5,traiter,poursuivre); 
-boucle(2,traiter2); 
+boucle(2,traiter); 
 
 /* 
 // Ne fonctionne que Pour une seule boucle à la fois 
@@ -50,6 +50,24 @@ function boucle(iPeriode,fnCbTraitement,fnCbContinuer) {
 
 }
 */
+
+function boucle(iPeriode,fnCbTraitement,fnCbContinuer) {
+
+	// TODO : enfermer dans le scope de la fonction à rappeler
+	// plutôt que dans des variables globales 
+	// les informations de rappel 
+	
+	if (iPeriode != undefined) {
+		// premiere fois : on stocke les arguments en var. globales 
+		g_iPeriode = iPeriode; 
+		g_fnCbTraitement = fnCbTraitement;
+		g_fnCbContinuer = fnCbContinuer;
+	}
+
+	if (g_fnCbContinuer()) {
+		g_fnCbTraitement();
+		setTimeout(boucle, g_iPeriode*1000);
+	}
 
 </script>
 </head>
