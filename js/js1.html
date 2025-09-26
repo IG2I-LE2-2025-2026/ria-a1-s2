@@ -110,7 +110,7 @@ debug2("m27"); // doit afficher
 // TODO : oDbg qui offre la fonctionnalité sous forme d'objet  
 var oDbg = (function(max_interne){
 	var compteur_interne = 0; 
-	// if (max_interne == undefined) max_interne=5; 
+	if (max_interne == undefined) max_interne=5; 
 	return {
 		trace : function(s){
 			if (++compteur_interne<=max_interne) trace(s);
