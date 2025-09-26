@@ -5,12 +5,15 @@ compteur=0;
 function traiter() {
 	console.log("traiter : " + ++compteur); 
 }
+function traiter2() {
+	console.log("traiter2 : " + ++compteur); 
+}
 function poursuivre() {
 	if (compteur<=5) return true;
 	else return false;
 }
-boucle(5,traiter,poursuivre); 
-boucle(2,traiter); 
+//boucle(5,traiter,poursuivre); 
+//boucle(2,traiter2); 
 
 /* 
 // Ne fonctionne que Pour une seule boucle à la fois 
@@ -50,6 +53,20 @@ function boucle(iPeriode,fnCbTraitement,fnCbContinuer) {
 
 }
 */
+/*
+function boucle(iPeriode,fnCbTraitement,fnCbContinuer) {
+
+	// TODO : enfermer dans le scope de la fonction à rappeler
+	// plutôt que dans des variables globales 
+	// les informations de rappel 
+	
+	if ( (fnCbContinuer == undefined) || fnCbContinuer()) {
+		fnCbTraitement();
+		setTimeout(function() {
+			boucle(iPeriode,fnCbTraitement,fnCbContinuer); 
+		}, iPeriode*1000);
+	}
+}*/
 
 function boucle(iPeriode,fnCbTraitement,fnCbContinuer) {
 
@@ -57,17 +74,33 @@ function boucle(iPeriode,fnCbTraitement,fnCbContinuer) {
 	// plutôt que dans des variables globales 
 	// les informations de rappel 
 	
-	if (iPeriode != undefined) {
-		// premiere fois : on stocke les arguments en var. globales 
-		g_iPeriode = iPeriode; 
-		g_fnCbTraitement = fnCbTraitement;
-		g_fnCbContinuer = fnCbContinuer;
-	}
+	var foo = function () {
+		// la fonction "voit" les paramètres formels de boucle !! 
+		if ( (fnCbContinuer == undefined) || fnCbContinuer()) {
+			fnCbTraitement();
+			setTimeout(foo, iPeriode*1000);
+		}
+	}; 
+	foo();
+}
 
-	if (g_fnCbContinuer()) {
-		g_fnCbTraitement();
-		setTimeout(boucle, g_iPeriode*1000);
-	}
+// TODO : rendre tous les arguments optionnels ! 
+// Solution : passer un objet de configuration en paramètre
+
+var oDefault = {
+	periode : 5, 
+	fnTraitement : function(){console.log("traitement");}, 
+	fnPoursuite: function(){return true;}
+}
+
+function oBoucle(oConfig) {
+
+}
+
+oBoucle({periode:2}); 
+oBoucle({});
+oBoucle({fnTraitement:traiter});
+oBoucle({fnTraitement:traiter2, fnPoursuite:poursuivre}); 
 
 </script>
 </head>
