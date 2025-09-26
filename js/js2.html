@@ -10,9 +10,28 @@ function poursuivre() {
 	else return false;
 }
 boucle(5,traiter,poursuivre); 
-boucle(2,traiter); 
+boucle(2,traiter2); 
 
+/* 
+// Ne fonctionne que Pour une seule boucle à la fois 
+// car on utilise des var. globales !! 
+var g_iPeriode;
+var g_fnCbTraitement;
+var g_fnCbContinuer;
 function boucle(iPeriode,fnCbTraitement,fnCbContinuer) {
+
+	if (iPeriode != undefined) {
+		// premiere fois : on stocke les arguments en var. globales 
+		g_iPeriode = iPeriode; 
+		g_fnCbTraitement = fnCbTraitement;
+		g_fnCbContinuer = fnCbContinuer;
+	}
+
+	if (g_fnCbContinuer()) {
+		g_fnCbTraitement();
+		setTimeout(boucle, g_iPeriode*1000);
+	}
+
 	// Objectif : déclencher un appel à la fonction fnCbTraitement
 	// toutes les iPeriode secondes, 
 	// tant que fnCbContinuer renvoie vrai
@@ -30,6 +49,8 @@ function boucle(iPeriode,fnCbTraitement,fnCbContinuer) {
 	// rendre le 3ème argument optionnel
 
 }
+*/
+
 </script>
 </head>
 <body>
