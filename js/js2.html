@@ -1,11 +1,27 @@
 <head>
 
 <script>
+compteur=0;
+function traiter() {
+	console.log("traiter : " + ++compteur); 
+}
+function poursuivre() {
+	if (compteur<=5) return true;
+	else return false;
+}
+boucle(5,traiter,poursuivre); 
+boucle(2,traiter); 
 
 function boucle(iPeriode,fnCbTraitement,fnCbContinuer) {
 	// Objectif : déclencher un appel à la fonction fnCbTraitement
 	// toutes les iPeriode secondes, 
 	// tant que fnCbContinuer renvoie vrai
+	
+	// OBLIGATION d'utiliser window.setTimeout
+	// IL FAUT POUVOIR DECLENCHER PLUSIEURS BOUCLES en parallèle 
+	// => impossible de stocker de l'information en var. globale 
+	// INTERDICTION d'utiliser les arguments optionnels de setTimeout
+	// setTimeout(functionRef, delay) seulement 
 
 	// fnCbTraitement est une fonction de rappel ("CALLBACK")
 	// elle sera appelée plus tard
