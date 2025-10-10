@@ -6,8 +6,17 @@
 
 var request = false;
 
-function envoiRequete(type,url,donnees,callback)
+function envoiRequete(type, url, donnees, callback)
 {
+  function traiteReponse() {
+	  if (request.readyState == 4) {
+	      if (request.status == 200) {
+			    var reponse = request.responseText;
+			    // Appelle la fonction de callback
+			    callback(reponse);
+	      }
+	  }
+  } 
 	request = new XMLHttpRequest(); 
 
 	if (type=='GET') 
@@ -21,23 +30,13 @@ function envoiRequete(type,url,donnees,callback)
 		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	}
 
-	request.onreadystatechange = callback;
+	request.onreadystatechange = traiteReponse;
 	request.send(donnees);
 }
 
-function traiteReponse()
-{
-	//alert(request.readyState);	// à décommenter
-	if (request.readyState == 4) 
-	{
-	    if (request.status == 200) 
-	    {
-			  var reponse = request.responseText;
-			  // Intègre la réponse dans la page
-			  html("reponse", reponse);
-	    }
-	}
-} 
+// ^^^ Framework
+///////////////////////////
+// vvv Métier
 
 function envoyer(refBtn)
 {
@@ -52,7 +51,12 @@ function envoyer(refBtn)
   donnees = 'cle=' + val("cle");
   
   // Appelle la fonction envoiRequete
-  envoiRequete(type, 'A2_data.php', donnees, traiteReponse)
+  envoiRequete(
+    type,
+    'A2_data.php',
+    donnees,
+    function(r) { html("reponse", r); }
+  );
 }
 
 </script>
