@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Recherche avec suggestions</title>
+  <meta charset="UTF-8">
+  <style>
+    .recherche {
+      font-size: 300%;
+    }
+    
+    .suggestion {
+      font-size: 250%;
+      padding: 0px .5em;
+      border: 1px solid #999900;
+    }
+    
+    .suggestion:hover {
+      color: yellow;
+      background-color: #333300;
+      cursor: pointer;
+    }
+    
+    #suggest {
+      background-color: lightyellow;
+    }
+  </style>
+  <script src="js/utils.js">
+    // Fonctions utilitaires (show, hide, html, val)
+  </script>
+  <script src="js/ajax.js">
+    // Fonction ajax
+  </script>
+  <script src="js/suggest.js">
+    // Fonctions pour le suggest
+  </script>
+</head>
+<body>
+
+<input id="recherche" class="recherche" type="text" onkeyup="chargerSuggestions();" />
+<input type="button" class="recherche" value="🔍" />
+
+<div id="suggest" onclick="validerSuggestion(event);">
+  <div class="suggestion">
+    Maxime Folschette
+  </div>
+  <div class="suggestion">
+    Thomas Bourdeaud'huy
+  </div>
+  <div class="suggestion">
+    Jean-Jacques Martin
+  </div>
+  <div class="suggestion">
+    Test Test
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
