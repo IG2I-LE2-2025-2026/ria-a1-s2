@@ -1,5 +1,7 @@
 <?php
 
+sleep(2);
+
 $salles = array("Isabelle"=>"B7-104","Thomas"=>"C118");
 $noms = array("Isabelle"=>"Le-Glaz", "Thomas"=>"Bourdeaud'huy");
 
