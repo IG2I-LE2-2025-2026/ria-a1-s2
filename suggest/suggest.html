@@ -36,10 +36,10 @@
 </head>
 <body>
 
-<input id="recherche" class="recherche" type="text" />
+<input id="recherche" class="recherche" type="text" onkeyup="recherche_suggestions();" />
 <input type="button" class="recherche" value="🔍" />
 
-<div id="suggest">
+<div id="suggest" onclick="valider_suggestion(event);">
   <div class="suggestion">
     Maxime Folschette
   </div>
