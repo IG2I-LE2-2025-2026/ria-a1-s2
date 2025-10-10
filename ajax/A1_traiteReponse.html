@@ -1,25 +1,66 @@
+<script src="../js/utils.js">
+  // Fonctions show, hide, html, val
+</script>
+
 <script type="text/javascript">
 
-function traiteReponse()
-{
-	//alert(request.readyState);	// à décommenter
-	if (request.readyState == 4) 
-	{
-	    if (request.status == 200) 
-	    {
-	    	var reponse = request.responseText;
-			alert("reponse recue:" + reponse);        
-	    }
-	}
-} 
+function recevoir_message() {
+  function traiteReponse()
+  {
+	  //alert(request.readyState);	// à décommenter
+	  if (request.readyState == 4) 
+	  {
+	      if (request.status == 200) 
+	      {
+	      	var reponse = request.responseText;
+			    //alert("reponse recue:" + reponse);
+			    html("message", reponse);
+	      }
+	  }
+  } 
 
-request = new XMLHttpRequest(); 
-request.onreadystatechange = traiteReponse; 
-request.open('GET', "A1_data.txt", true);
-request.send(null);
+  var request = new XMLHttpRequest(); 
+  request.onreadystatechange = traiteReponse; 
+  request.open('GET', "A1_data.txt", true);
+  request.send(null);
+}
 
 </script>
 
 
 <html>
+
+<p>Cliquez pour recevoir un message :</p>
+
+<input type="button" value="Recevoir"
+  onclick="recevoir_message();" />
+
+<div id="message">
+</div>
+
+<p>Copyright Maxime Folschette</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>
