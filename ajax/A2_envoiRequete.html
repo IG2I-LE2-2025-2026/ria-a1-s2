@@ -2,44 +2,14 @@
   // Fonction hide, show, html, val
 </script>
 
+<script src="ajax.js">
+  // Fonction ajax
+</script>
+
 <script type="text/javascript">
-
-function envoiRequete(type, url, donnees, callback)
-{
-  var request = new XMLHttpRequest(); 
-  
-  function traiteReponse() {
-	  if (request.readyState == 4) {
-	      if (request.status == 200) {
-			    var reponse = request.responseText;
-			    // Appelle la fonction de callback
-			    callback(reponse);
-	      }
-	  }
-  } 
-
-	if (type=='GET') 
-	{
-		request.open("GET", url+"?"+donnees, true);
-		donnees=null;
-	}
-	else 
-	{
-		request.open("POST", url, true);
-		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	}
-
-	request.onreadystatechange = traiteReponse;
-	request.send(donnees);
-}
-
-// ^^^ Framework
-///////////////////////////
-// vvv Métier
-
 function envoyer(refBtn)
 {
-	var type, donnees;
+	var type;
 	
 	if (val(refBtn) === 'envoi GET') {
 	  type = 'GET';
@@ -47,15 +17,13 @@ function envoyer(refBtn)
     type = 'POST';
   }
   
-  donnees = 'cle=' + val("cle");
-  
   // Appelle la fonction envoiRequete
-  envoiRequete(
-    type,
-    'A2_data.php',
-    donnees,
-    function(r) { html("reponse", r); }
-  );
+  ajax({
+    type: type,
+    url: 'A2_data.php',
+    donnees: { cle: val("cle") },
+    callback: function(r) { html("reponse", r); }
+  });
 }
 
 </script>
