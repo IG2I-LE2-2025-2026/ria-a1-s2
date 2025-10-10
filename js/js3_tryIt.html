@@ -46,7 +46,17 @@
 
 <script type="text/javascript">
 function maj() {
-	// TODO : copie le code depuis le textarea "code" vers le div "rendu"
+	// copie le code depuis le textarea "code" vers le div "rendu"
+	html("rendu", val("code"));
+}
+
+function auto_maj() {
+  oBoucle({
+    periode: 1,
+    fnTraitement: maj,
+    fnPoursuite: function() { return val("cb"); }
+  });
+  // TODO : Utiliser encore oBoucle pour afficher une image à chaque mise à jour pendant 1/2 seconde
 }
 
 function init()
@@ -59,8 +69,8 @@ function init()
 <body onload="init();">
 
 <div id="inputs">
-	<input value="actualiser le rendu" type="button">
-	<input id="cb" type="checkbox">
+	<input value="actualiser le rendu" type="button" onclick="maj();">
+	<input id="cb" type="checkbox" onclick="auto_maj();">
 	<label for="cb">automatiquement</label>
 </div>
 
