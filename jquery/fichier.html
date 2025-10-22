@@ -1,0 +1,43 @@
+<script src="jquery-3.7.1.min.js"></script>
+<style>
+	.allume {background-color:yellow;}
+	.exemple {display:none;}
+</style>
+<script>
+	function decollage() {
+		// $ <=> alias pour fonction jQuery 
+		// $ est une fonction pouvant prendre les paramètres suivants : 
+		// $("selecteur CSS")  
+		// $("selecteur CSS", context)
+		// renvoie une collection d'objets du DOM
+		// $("<structure HTML>") permet de créer une balise 
+		// $(refJS) renvoie la collection représentant l'élément refJS
+		
+		// une collection Jquery est un objet comportant des propriétés 
+		// et des méthodes 
+		// .length <=> nbr d'éléments dans la collection 
+		
+		// les méthodes s'appliquent GENERALEMENT
+		// à tous les membres de la collection 
+		
+		// les méthodes renvoient GENERALEMENT la collection 
+		// sur laquelle elles se sont exécutées 
+		// => permet une cascade d'appels de méthode ! 
+		$(".exemple")
+			.addClass("allume")
+			.show("slow");
+			
+		console.log($(".exemple").length); 
+	}
+</script>
+
+<body>
+	<input type="button" onclick="decollage()" value="GO"/>
+	<p class="exemple"> P1 </p>
+	<p class=""> P2 </p>
+	<p class="exemple"> P3 </p>
+	<div class="exemple"> div1 </div>
+	<div class=""> div2 </div>
+	<div class="exemple"> div3 </div>
+</body>
+
