@@ -7,7 +7,7 @@ function recherche_suggestions() {
   // 2) parcourir l'objet pour créer le XHTML
   // 3) insérer le XHTML dans le champ "suggest"
   ajax({
-    url: "data_json.php",
+    url: "data_bdd.php",
     donnees : {
     	debutNom : recherche
     }, 
