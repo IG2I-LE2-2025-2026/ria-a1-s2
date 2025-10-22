@@ -5,7 +5,10 @@ function recherche_suggestions() {
   var recherche = val("recherche");
   // TODO : requête AJAX
   ajax({
-    url: "fixture.php",
+    url: "data.php",
+    donnees : {
+    	debutNom : recherche
+    }, 
     callback: function (r) {
       console.log("Retour AAJX recherche_suggestions");
       html("suggest", r);

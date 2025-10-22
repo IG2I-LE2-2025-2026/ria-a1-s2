@@ -10,10 +10,16 @@ if (isset($_GET["debutNom"]))
 	foreach ($tabLignes as $ligne)
 	{
 		// TODO EXO1 : effectuer une recherche sur nom ou prénom 
-		if (preg_match("/^.*:(" . $cherche . ".*)$/i",$ligne,$tabResultats))
+		if (
+		preg_match("/^(.*):(" . $cherche . ".*):.*$/i",$ligne,$tabResultats)
+		|| 
+		preg_match("/^($cherche.*):(.*):.*$/i",$ligne,$tabResultats)
+		)
 		{
 			// TODO EXO2 afficher nom ET prénom 
-			echo $tabResultats[1]; 
+			echo "<div class=\"suggestion\">"; 
+			echo $tabResultats[2]  . " " . $tabResultats[1]; 
+			echo "</div>"; 
 			// TODO formater en XHTML
 		}
 	}

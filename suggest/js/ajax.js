@@ -25,7 +25,7 @@ function enrichir(oDefault, oParams) {
 function ajax(urlOrOParams, oParams)
 {
   var request = new XMLHttpRequest();
-  var url, type, oDonnes, donnees, callback;
+  var url, type, oDonnees, donnees, callback;
   
   // Distinguer les deux syntaxes (1 ou 2 arguments)
   if (typeof urlOrOParams === 'string') {
@@ -41,7 +41,7 @@ function ajax(urlOrOParams, oParams)
   // On revient aux paramètres « à l'ancienne »
   type = oParams.type;
   callback = oParams.callback;
-  oDonnees = oParams.donnees;
+  oDonnees = oParams.donnees; 
   donnees = '';
   for (var prop in oDonnees) {
     donnees += '&' + prop + '=' + oDonnees[prop];
