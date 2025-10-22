@@ -1,0 +1,30 @@
+<script src="jquery-3.7.1.min.js"></script>
+<style>
+#contenu {
+	display:none;
+}
+</style>
+<script>
+	function toggle() {
+		$("#contenu").toggle("slow"); 
+		//basculer l'affichage
+		// changer le label du bouton ? 
+		if ($("input[value='Afficher']").length >0) 
+			$("input[value='Afficher']").val("Cacher");
+		else 
+			$("input[value='Cacher']").val("Afficher");
+	}
+</script>
+
+<body>
+<input type="button" onclick="toggle()" value="Afficher"/>
+<div id="contenu">
+	<p>P1</p>
+	<p>P2</p>
+	<p>P3</p>
+</div><p></p>
+<input type="button" onclick="toggle()" value="Afficher"/>
+
+</body>
+
+
