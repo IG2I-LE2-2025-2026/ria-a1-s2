@@ -42,12 +42,17 @@ var jSaisie = $("<input type='text'>")
 // Équivalent à <body onload="...">
 $(document).ready(function() {
   console.log("$(document).ready");
+  
+  // Ajout des boutons « + »
   // <input type="button" onclick="addP(this);" value="+" class="controle"/>
   var jBoutonPlus = $('<input type="button">')
     .val('+')
     .addClass('controle')
     .click(addP);
   $('.boutonAfficherCacher').after(jBoutonPlus);
+  
+  // Au clic sur les boutons Afficher/Cacher
+  $('.boutonAfficherCacher').click(toggle);
 });
 
 function toggle() {
@@ -102,7 +107,7 @@ function addP() {
 </script>
 
 <body>
-<input type="button" class="boutonAfficherCacher" onclick="toggle()" value="Afficher"/>
+<input type="button" class="boutonAfficherCacher toto" value="Afficher"/>
 <input type="text" class="controle"/>
 
 <div id="contenu">
@@ -110,7 +115,7 @@ function addP() {
   <p>P2</p>
   <p>P3</p>
 </div><p></p>
-<input type="button" class="boutonAfficherCacher" onclick="toggle()" value="Afficher"/>
+<input type="button" class="boutonAfficherCacher" value="Afficher"/>
 <input type="text" class="controle"/>
 </body>
 
