@@ -12,22 +12,7 @@
 // que l'on va utiliser ensuite
 
 var jPeditable = $("<p>")
-  .html("Nouveau")
-  .addClass("allume")
-  .css("text-decoration", "underline")
-  //.css({"text-decoration":"underline", 
-  //      "font-style":"italic"}); 
-  .click(function(){
-    console.log("click sur " + $(this).html()); 
-    // gestionnaire d'événement jQuery ! 
-    // récupérer une référence vers l'élément 
-    // cible de l'événement : $(this)
-    
-    var contenu = $(this).html(); 
-    var jClone = jSaisie.clone(true); 
-    jClone.val(contenu); 
-    $(this).replaceWith(jClone);
-  })
+  .html("Nouveau");
   
 var jSaisie = $("<input type='text'>")
   .keyup(function(contexte){
@@ -53,6 +38,23 @@ $(document).ready(function() {
   
   // Au clic sur les boutons Afficher/Cacher
   $('.boutonAfficherCacher').click(toggle);
+  
+  // Au clic sur les paragraphes éditables
+  // Version « on » => paragraphes actuels et futurs
+  $(document).on('click', '#contenu p',
+    function(){
+      console.log("click sur " + $(this).html()); 
+      // gestionnaire d'événement jQuery ! 
+      // récupérer une référence vers l'élément 
+      // cible de l'événement : $(this)
+      
+      var contenu = $(this).html(); 
+      var jClone = jSaisie.clone(true); 
+      jClone.val(contenu); 
+      $(this).replaceWith(jClone);
+    }
+  );
+
 });
 
 function toggle() {
@@ -107,6 +109,7 @@ function addP() {
 </script>
 
 <body>
+<p>Bienvenue dans mon application</p>
 <input type="button" class="boutonAfficherCacher toto" value="Afficher"/>
 <input type="text" class="controle"/>
 
