@@ -1,7 +1,7 @@
 <script src="jquery-3.7.1.min.js"></script>
 <style>
 #contenu, .controle {
-	display:none;
+  display:none;
 }
 .allume {background-color:yellow;}
 </style>
@@ -12,91 +12,105 @@
 // que l'on va utiliser ensuite
 
 var jPeditable = $("<p>")
-	.html("Nouveau")
-	.addClass("allume")
-	.css("text-decoration", "underline")
-	//.css({"text-decoration":"underline", 
-	//			"font-style":"italic"}); 
-	.click(function(){
-		console.log("click sur " + $(this).html()); 
-		// gestionnaire d'événement jQuery ! 
-		// récupérer une référence vers l'élément 
-		// cible de l'événement : $(this)
-		
-		var contenu = $(this).html(); 
-		var jClone = jSaisie.clone(true); 
-		jClone.val(contenu); 
-		$(this).replaceWith(jClone);
-	})
-	
+  .html("Nouveau")
+  .addClass("allume")
+  .css("text-decoration", "underline")
+  //.css({"text-decoration":"underline", 
+  //      "font-style":"italic"}); 
+  .click(function(){
+    console.log("click sur " + $(this).html()); 
+    // gestionnaire d'événement jQuery ! 
+    // récupérer une référence vers l'élément 
+    // cible de l'événement : $(this)
+    
+    var contenu = $(this).html(); 
+    var jClone = jSaisie.clone(true); 
+    jClone.val(contenu); 
+    $(this).replaceWith(jClone);
+  })
+  
 var jSaisie = $("<input type='text'>")
-	.keyup(function(contexte){
-		console.log("saisie de " + $(this).val());
-		// Comment connaître le contexte 
-		// de l'événement ? 
-		// JQUERY le fournit !!! 
-		console.log(contexte); // contexte.key dénote la touche saisie
+  .keyup(function(contexte){
+    console.log("saisie de " + $(this).val());
+    // Comment connaître le contexte 
+    // de l'événement ? 
+    // JQUERY le fournit !!! 
+    console.log(contexte); // contexte.key dénote la touche saisie
 });
 
-	function toggle() {
-		$("#contenu").toggle("slow");
-		$(".controle").toggle("slow"); 
-		
-		//basculer l'affichage
-		// changer le label du bouton ? 
-		if ($("input[value='Afficher']").length >0) 
-			$("input[value='Afficher']").val("Cacher");
-		else 
-			$("input[value='Cacher']").val("Afficher");
-	}
-	
-function addP(refBtn) {
-	// conventions de nommage : 
-	// refXYZ : reférence js 
-	// jXYZ : collection jQuery 
-	
-	// comment savoir quel est le bouton cliqué ?
-	// connaitre l'indice d'un élément dans une collection : https://api.jquery.com/index/
-	
-	console.log($("input[value='+']").index(refBtn));
-	
-	// tester l'égalité entre collections
-	// https://api.jquery.com/is/#is-selector 
-	// $(refJS) renvoie la collection représentant l'élément refJS
-	console.log($(refBtn).is(
-		// $("input[value='+']").first()
-		$("input[value='+']:first")
-	)); 
+// Code exécuté à la fin du chargement de la page
+// Équivalent à <body onload="...">
+$(document).ready(function() {
+  console.log("$(document).ready");
+  // <input type="button" onclick="addP(this);" value="+" class="controle"/>
+  var jBoutonPlus = $('<input type="button">')
+    .val('+')
+    .addClass('controle')
+    .click(addP);
+  $('.boutonAfficherCacher').after(jBoutonPlus);
+});
 
-	// comment récupérer le contenu du champ texte 
-	// situé à droite du bouton + ? 
-	var contenu = $(refBtn).next().val();
-	var jClone = jPeditable.clone(true);
-	if (contenu != "") 
-		jClone.html(contenu); 
-	
-	if ($("input[value='+']").index(refBtn)) {
-		// 1 <=> bouton du bas
-		$("#contenu").append(jClone); 
-	} else {
-		// 0 <=> bouton du haut 
-		$("#contenu").prepend(jClone);
-	}
+function toggle() {
+  $("#contenu").toggle("slow");
+  $(".controle").toggle("slow"); 
+  
+  //basculer l'affichage
+  // changer le label du bouton ? 
+  if ($("input[value='Afficher']").length >0) 
+    $("input[value='Afficher']").val("Cacher");
+  else 
+    $("input[value='Cacher']").val("Afficher");
+}
+  
+function addP() {
+  // conventions de nommage : 
+  // refXYZ : reférence js 
+  // jXYZ : collection jQuery 
+  
+  // comment savoir quel est le bouton cliqué ?
+  // connaitre l'indice d'un élément dans une collection : https://api.jquery.com/index/
+  
+  // Si la fonction est appelée par JQuery,
+  // $(this) contient la référence du bouton cliqué
+  var refBtn = $(this);
+  
+  console.log($("input[value='+']").index(refBtn));
+  
+  // tester l'égalité entre collections
+  // https://api.jquery.com/is/#is-selector 
+  // $(refJS) renvoie la collection représentant l'élément refJS
+  console.log(refBtn.is(
+    // $("input[value='+']").first()
+    $("input[value='+']:first")
+  )); 
+
+  // comment récupérer le contenu du champ texte 
+  // situé à droite du bouton + ? 
+  var contenu = refBtn.next().val();
+  var jClone = jPeditable.clone(true);
+  if (contenu != "") 
+    jClone.html(contenu); 
+  
+  if ($("input[value='+']").index(refBtn)) {
+    // 1 <=> bouton du bas
+    $("#contenu").append(jClone); 
+  } else {
+    // 0 <=> bouton du haut 
+    $("#contenu").prepend(jClone);
+  }
 }
 </script>
 
 <body>
-<input type="button" onclick="toggle()" value="Afficher"/>
-<input type="button" onclick="addP(this);" value="+" class="controle"/>
+<input type="button" class="boutonAfficherCacher" onclick="toggle()" value="Afficher"/>
 <input type="text" class="controle"/>
 
 <div id="contenu">
-	<p>P1</p>
-	<p>P2</p>
-	<p>P3</p>
+  <p>P1</p>
+  <p>P2</p>
+  <p>P3</p>
 </div><p></p>
-<input type="button" onclick="toggle()" value="Afficher"/>
-<input type="button" onclick="addP(this);" value="+" class="controle"/>
+<input type="button" class="boutonAfficherCacher" onclick="toggle()" value="Afficher"/>
 <input type="text" class="controle"/>
 </body>
 
