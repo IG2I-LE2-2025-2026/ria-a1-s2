@@ -6,25 +6,29 @@ var hash = "a_changer";
  
 
 $(document).ready(function(){
-  authenticate(getArticle9);
-  //authenticate(getArticles);
-  //authenticate(postArticle);
-  //postArticle();  
-  //putArticle(11,"T3");
+  // Clic sur bouton d'authentification => s'authentifier
+  $("#btnAuthentification").click(authenticate);
 });
 
-function authenticate(cbNext) {
+function authenticate() {
+  var pseudo = $("#pseudo").val(),
+      passe = $("#passe").val();
   $.ajax({
     type: "POST",
     url: apiRoot + "/authenticate",
     headers: {"debug-data":true},
-    data: {"user":"groupe-a1","password":"groupe-a1"},
+    data: {"user":pseudo,"password":passe},
     success: function(oRep){
-      console.log(oRep); 
-      hash = oRep.hash; 
-      cbNext(); 
-  },
-  dataType: "json"
+      console.log(oRep);
+      hash = oRep.hash;
+      $("#authentification").hide();
+      getArticle9(); 
+    },
+    error: function(oRep){
+      console.log(oRep);
+      $("#messageErreurAuthentification").show();
+    },
+    dataType: "json"
   });
 } 
 
@@ -42,6 +46,7 @@ function getArticle9(){
         p = $("<p>").html(oRep.paragraphes[i].contenu);
         $("#contenu").append(p);
       }
+      $("#paragraphesArticle").show()
     },
     dataType: "json"
   });
@@ -55,6 +60,7 @@ function getArticle9(){
       console.log(oRep);
       var titre = $("<h2>").html(oRep.article.titre);
       $("#contenu").before(titre);
+      $("#titreArticle").show()
     },
     dataType: "json"
   });
@@ -121,8 +127,49 @@ function putArticle(id,titre){
 
 </script>
 
+<style>
+#authentification {
+  border: 2px solid gray;
+  padding: 20px;
+  margin: 20px;
+}
+#titreArticle, #paragraphesArticle {
+  display: none;
+}
+#messageErreurAuthentification {
+  display: none;
+  border: 2px solid #550000;
+  background-color: #ffaaaa;
+}
+</style>
+
 <body>
-<div id="contenu">
+
+<div id="authentification">
+  <label for="pseudo">Nom d'utilisateur :</label>
+  <input id="pseudo" type="text" />
+  <br />
+  <label for="passe">Mot de passe :</label>
+  <input id="passe" type="password" />
+  <br />
+  <input id="btnAuthentification" type="button" value="S'authentifier" />
+  <p id="messageErreurAuthentification">Erreur d'authentification !</p>
 </div>
+
+<div id="titreArticle">
+</div>
+
+<div id="paragraphesArticle">
+  <div id="contenu">
+  </div>
+</div>
+
 </body>
+
+
+
+
+
+
+
 
