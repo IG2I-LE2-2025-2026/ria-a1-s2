@@ -3,7 +3,13 @@
 #contenu, .controle {
   display:none;
 }
-.allume {background-color:yellow;}
+#contenu {
+  padding: 20px 20px;
+}
+.saisie {
+  display: block;
+  margin: 10px 0px;
+}
 </style>
 <script>
 
@@ -15,12 +21,19 @@ var jPeditable = $("<p>")
   .html("Nouveau");
   
 var jSaisie = $("<input type='text'>")
-  .keyup(function(contexte){
+  .addClass('saisie')
+  .keydown(function(contexte){
     console.log("saisie de " + $(this).val());
-    // Comment connaître le contexte 
-    // de l'événement ? 
-    // JQUERY le fournit !!! 
     console.log(contexte); // contexte.key dénote la touche saisie
+    // On utilise le contexte de l'événemnt (objet « event ») fourni par JQuery
+    if (contexte.originalEvent.key === 'Enter') {
+      // Valider l'édition du paragraphe
+      $(this).replaceWith(
+        jPeditable
+        .clone()
+        .html($(this).val())
+      );
+    }
 });
 
 // Code exécuté à la fin du chargement de la page
@@ -110,7 +123,7 @@ function addP() {
 
 <body>
 <p>Bienvenue dans mon application</p>
-<input type="button" class="boutonAfficherCacher toto" value="Afficher"/>
+<input type="button" class="boutonAfficherCacher" value="Afficher"/>
 <input type="text" class="controle"/>
 
 <div id="contenu">
