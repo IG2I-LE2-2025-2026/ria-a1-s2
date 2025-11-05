@@ -24,14 +24,13 @@ var jSaisie = $("<input type='text'>")
   .addClass('saisie')
   .keydown(function(contexte){
     console.log("saisie de " + $(this).val());
-    console.log(contexte); // contexte.key dénote la touche saisie
+//    console.log(contexte); // contexte.key dénote la touche saisie
     // On utilise le contexte de l'événemnt (objet « event ») fourni par JQuery
     if (contexte.originalEvent.key === 'Enter') {
       // Valider l'édition du paragraphe
       $(this).replaceWith(
-        jPeditable
-        .clone()
-        .html($(this).val())
+        jPeditable.clone()
+          .html($(this).val())
       );
     }
 });
@@ -63,11 +62,26 @@ $(document).ready(function() {
       
       var contenu = $(this).html(); 
       var jClone = jSaisie.clone(true); 
-      jClone.val(contenu); 
+      jClone.val(contenu)
+        .data('ancienneValeur', contenu);
       $(this).replaceWith(jClone);
     }
   );
-
+  
+  // À l'appui sur Échap n'importe où
+  $(document).keydown(function (contexte) {
+    //console.log(contexte);
+    if (contexte.originalEvent.key === 'Escape') {
+      console.log("Annulation des editions");
+      // Annuler toutes les éditions
+      $('#contenu .saisie').each(function () {
+        $(this).replaceWith(
+          jPeditable.clone()
+            .html($(this).data('ancienneValeur'))
+        );
+      });
+    }
+  });
 });
 
 function toggle() {
